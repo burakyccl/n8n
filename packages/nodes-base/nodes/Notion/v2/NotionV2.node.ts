@@ -240,8 +240,9 @@ export class NotionV2 implements INodeType {
 			if (operation === 'getAll') {
 				for (let i = 0; i < length; i++) {
 					const blockId = extractPageId(this.getNodeParameter('blockId', i) as string);
-					const returnAsArray = this.getNodeParameter('returnAsArray', i) as boolean;
 					const returnAll = this.getNodeParameter('returnAll', i) as boolean;
+					const returnAsArray = this.getNodeParameter('options.returnAsArray', i, false) as boolean;
+
 					if (returnAll) {
 						responseData = await notionApiRequestAllItems.call(this, 'results', 'GET', `/blocks/${blockId}/children`, {});
 					} else {
